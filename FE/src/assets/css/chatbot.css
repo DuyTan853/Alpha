@@ -1,0 +1,11 @@
+.icon-hover:hover {
+  color: #0d6efd !important; /* Bootstrap primary */
+  transition: color 0.2s ease-in-out;
+}
+
+@media (min-width: 768px) {
+  .chat-header-top {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+}

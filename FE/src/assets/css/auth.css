@@ -1,0 +1,48 @@
+.custom-hover-btn {
+  background-color: white;
+  color: #0d6efd;
+  border-color: #0d6efd;
+  transition: all 0.3s ease;
+}
+.custom-hover-btn:hover {
+  background-color: #0d6efd;
+  color: white;
+  border: 2px solid #0d6efd;
+}
+
+.submit-log{
+    background-color: #0d6efd;
+    color: white;
+    border-color: #0d6efd;
+}
+.submit-log:hover {
+    background-color: white;
+    color: #0d6efd;
+    border: 2px solid #0d6efd;
+}
+.oauth-divider {
+  display: flex;
+  align-items: center;
+  margin: 1.5rem 0;
+}
+
+.oauth-divider hr {
+  flex: 1;
+  border: none;
+  border-top: 1px solid #ccc;
+}
+
+.oauth-divider span {
+  margin: 0 1rem;
+  color: #888;
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+.oauth-buttons .btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 0.75rem;
+}

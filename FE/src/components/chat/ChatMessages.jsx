@@ -1,84 +1,62 @@
-import { motion } from 'framer-motion';
-import { Card, Row, Col, Image } from 'react-bootstrap';
-import { User } from 'lucide-react';
-import remarkGfm from 'remark-gfm';
-import rehypeHighlight from 'rehype-highlight';
-import ReactMarkdown from 'react-markdown';
-import 'highlight.js/styles/github.css';
-import gnarAvarta from '../../assets/images/gnarAvarta.png';
+import { motion } from "framer-motion";
+import { User } from "lucide-react";
+import remarkGfm from "remark-gfm";
+import rehypeHighlight from "rehype-highlight";
+import ReactMarkdown from "react-markdown";
+import "highlight.js/styles/github.css";
+import gnarAvarta from "../../assets/images/gnarAvarta.png";
 
-function ChatMessages({ messages,onQuickMessage }) {
+function ChatMessages({ messages, onQuickMessage }) {
+  const quickItems = [
+    { icon: "💡", text: "Giải thích về trí tuệ nhân tạo" },
+    { icon: "👨‍💻", text: "Giúp tôi học lập trình" },
+    { icon: "🎨", text: "Tạo ý tưởng sáng tạo" },
+    { icon: "🔍", text: "Tìm hiểu về công nghệ" },
+  ];
+
   const WelcomeMessage = () => (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      className="text-center py-5"
+      className="text-center py-10"
     >
-      <div className="mb-4 text-center">
-        <div
-          className="d-inline-flex align-items-center justify-content-center rounded-circle shadow"
-          style={{
-            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-            width: '60px',
-            height: '60px',
-            padding: '5px',
-          }}
-        >
-          <Image
+      <div className="mb-6">
+        <div className="inline-flex items-center justify-center rounded-full shadow bg-gradient-to-br from-indigo-500 to-purple-600 w-16 h-16 p-1">
+          <img
             src={gnarAvarta}
-            roundedCircle
             alt="Gnar Avatar"
-            style={{
-              width: '50px',
-              height: '50px',
-              objectFit: 'cover',
-              transition: 'transform 0.3s ease',
-            }}
+            className="rounded-full w-full h-full object-cover transition-transform"
           />
         </div>
       </div>
-
-      <h2 className="h3 fw-bold text-dark mb-3">Chào mừng đến với Gnar AI!</h2>
-      <p className="text-muted mb-4 px-3">
+      <h2 className="text-2xl font-bold text-gray-800 mb-3">
+        Chào mừng đến với Gnar AI!
+      </h2>
+      <p className="text-gray-500 mb-6 px-4">
         Tôi là trợ lý AI thông minh, sẵn sàng giúp bạn giải đáp mọi thắc mắc.
       </p>
-
-      <Row className="g-3 justify-content-center">
-        {[
-          { icon: '💡', text: 'Giải thích về trí tuệ nhân tạo' },
-          { icon: '👨‍💻', text: 'Giúp tôi học lập trình' },
-          { icon: '🎨', text: 'Tạo ý tưởng sáng tạo' },
-          { icon: '🔍', text: 'Tìm hiểu về công nghệ' },
-        ].map((item, i) => (
-          <Col key={i} xs={12} md={6} lg={3}>
-            <Card
-              className="h-100 border-0 shadow-sm hover-card"
-              style={{
-                background: 'rgba(255,255,255,0.8)',
-                backdropFilter: 'blur(10px)',
-                cursor: 'pointer',
-                transition: 'all 0.3s ease',
-              }}
-              onClick={() => onQuickMessage?.(item.text)}
-            >
-              <Card.Body className="text-center p-3">
-                <div className="fs-4 mb-2">{item.icon}</div>
-                <small className="text-muted">{item.text}</small>
-              </Card.Body>
-            </Card>
-          </Col>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 justify-center">
+        {quickItems.map((item, i) => (
+          <div
+            key={i}
+            className="bg-white/80 backdrop-blur p-4 text-center rounded shadow hover:shadow-md transition cursor-pointer"
+            onClick={() => onQuickMessage?.(item.text)}
+          >
+            <div className="text-2xl mb-2">{item.icon}</div>
+            <p className="text-sm text-gray-600">{item.text}</p>
+          </div>
         ))}
-      </Row>
+      </div>
     </motion.div>
   );
 
   if (messages.length === 0) return <WelcomeMessage />;
 
   return (
-    <div className="chat-messages">
+    <div className="p-4 space-y-4">
       {messages.map((message, index) => {
-        const isUser = message.role === 'user';
+        const isUser = message.role === "user";
 
         return (
           <motion.div
@@ -86,53 +64,41 @@ function ChatMessages({ messages,onQuickMessage }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, delay: index * 0.05 }}
-            className={`d-flex mb-4 ${isUser ? 'justify-content-end' : 'justify-content-start'}`}
+            className={`flex ${isUser ? "justify-end" : "justify-start"}`}
           >
             <div
-              className={`d-flex align-items-start ${isUser ? 'flex-row-reverse' : ''}`}
-              style={{ maxWidth: '75%' }}
+              className={`flex items-start ${
+                isUser ? "flex-row-reverse" : ""
+              } max-w-[75%]`}
             >
               {/* Avatar */}
               <div
-                className={`rounded-circle d-flex align-items-center justify-content-center ${isUser ? 'ms-3' : 'me-3'}`}
-                style={{ width: '44px', height: '44px', padding: '4px' }}
+                className={`rounded-full flex items-center justify-center w-11 h-11 p-1 ${
+                  isUser ? "ml-3" : "mr-3"
+                }`}
               >
                 {isUser ? (
-                  <div
-                    className="d-flex align-items-center justify-content-center rounded-circle shadow"
-                    style={{
-                      background: 'linear-gradient(135deg, #007bff 0%, #0056b3 100%)',
-                      width: '100%',
-                      height: '100%',
-                    }}
-                  >
+                  <div className="bg-gradient-to-br from-blue-500 to-blue-800 w-full h-full flex items-center justify-center rounded-full shadow">
                     <User size={20} color="white" />
                   </div>
                 ) : (
-                  <div
-                    className="d-flex align-items-center justify-content-center rounded-circle shadow"
-                    style={{
-                      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                      width: '100%',
-                      height: '100%',
-                    }}
-                  >
-                    <Image
+                  <div className="bg-gradient-to-br from-indigo-500 to-purple-600 w-full h-full flex items-center justify-center rounded-full shadow">
+                    <img
                       src={gnarAvarta}
-                      roundedCircle
                       alt="Gnar"
-                      style={{ width: '35px', height: '35px', objectFit: 'cover' }}
+                      className="w-9 h-9 rounded-full object-cover"
                     />
                   </div>
                 )}
               </div>
 
-              {/* Message content */}
+              {/* Message bubble */}
               <div
-                className={`rounded-3 px-3 py-2 shadow-sm ${isUser ? 'bg-primary text-white' : 'bg-light border'}`}
-                style={{
-                  borderRadius: isUser ? '20px 20px 5px 20px' : '20px 20px 20px 5px',
-                }}
+                className={`px-4 py-2 rounded-2xl shadow-sm text-sm whitespace-pre-wrap break-words ${
+                  isUser
+                    ? "bg-blue-600 text-white rounded-br-sm"
+                    : "bg-gray-100 text-gray-800 rounded-bl-sm border"
+                }`}
               >
                 <ReactMarkdown
                   children={
@@ -145,20 +111,15 @@ function ChatMessages({ messages,onQuickMessage }) {
                   components={{
                     pre: ({ node, ...props }) => (
                       <pre
-                        className="text-dark"
-                        style={{
-                          background: '#f8f9fa',
-                          borderRadius: '0.375rem',
-                          padding: '0.5rem',
-                          overflowX: 'auto',
-                        }}
+                        className="bg-gray-100 text-black text-sm rounded p-2 overflow-x-auto mt-2 mb-2"
                         {...props}
                       />
                     ),
                     code: ({ inline, className, children, ...props }) => (
                       <code
-                        className={`${inline ? '' : 'd-block'} ${className || ''}`}
-                        style={{ backgroundColor: inline ? '#e9ecef' : 'transparent' }}
+                        className={`${
+                          inline ? "bg-gray-200 px-1 py-0.5 rounded" : "block"
+                        } ${className || ""}`}
                         {...props}
                       >
                         {children}

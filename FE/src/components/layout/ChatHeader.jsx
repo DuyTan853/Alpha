@@ -1,81 +1,67 @@
-import { Container, Button } from 'react-bootstrap';
-import { Bot, Trash2, Sparkles } from 'lucide-react';
+import { Bot, Trash2, Sparkles } from "lucide-react";
 
 function ChatHeader({ messagesCount, onClearChat, isLoading }) {
   return (
-    <div 
-      className="shadow-sm"
+    <div
+      className="shadow-sm text-white"
       style={{
-        background: 'linear-gradient(135deg, #007bff, #6f42c1)',
-        color: 'white',
+        background: "linear-gradient(135deg, #007bff, #6f42c1)",
       }}
     >
-      <Container className="d-flex flex-wrap justify-content-between align-items-center py-3 gap-2">
-
+      <div className="flex flex-wrap justify-between items-center gap-3 px-6 py-4">
         {/* Logo & tên bot */}
-        <div className="d-flex align-items-center flex-grow-1">
-          <div
-            className="bg-white bg-opacity-25 rounded-circle p-2 me-3 d-flex align-items-center justify-content-center"
-            style={{ width: '42px', height: '42px' }}
-          >
+        <div className="flex items-center flex-grow">
+          <div className="bg-white bg-opacity-25 rounded-full p-2 mr-3 flex items-center justify-center w-[42px] h-[42px]">
             <Bot size={22} />
           </div>
           <div>
-            <h5 className="mb-0 fw-bold">Gnar AI ChatBot</h5>
-            <small className="d-flex align-items-center opacity-75">
-              <Sparkles size={14} className="me-1" />
+            <h5 className="font-bold text-base m-0">Gnar AI ChatBot</h5>
+            <div className="flex items-center text-white text-sm opacity-75">
+              <Sparkles size={14} className="mr-1" />
               Powered by Ollama
-            </small>
+            </div>
           </div>
         </div>
 
         {/* Các nút chức năng */}
-        <div className="d-flex align-items-center flex-wrap gap-2">
-          <Button
-            variant="outline-light"
-            size="sm"
+        <div className="flex flex-wrap items-center gap-2">
+          <a
             href="/about"
-            className="rounded-pill px-3 py-2 border-2"
-            style={{ border: '2px solid rgba(255,255,255,0.3)' }}
+            className="text-white text-sm px-4 py-2 rounded-full border border-white border-opacity-30 hover:bg-white hover:bg-opacity-10 transition"
           >
             Giới thiệu
-          </Button>
+          </a>
 
-          <Button
-            variant="outline-light"
-            size="sm"
+          <a
             href="/login"
-            className="rounded-pill px-3 py-2 border-2"
-            style={{ border: '2px solid rgba(255,255,255,0.3)' }}
+            className="text-white text-sm px-4 py-2 rounded-full border border-white border-opacity-30 hover:bg-white hover:bg-opacity-10 transition"
           >
             Đăng nhập
-          </Button>
+          </a>
 
-          <Button
-            variant="outline-light"
-            size="sm"
+          <a
             href="/register"
-            className="rounded-pill px-3 py-2 border-2"
-            style={{ border: '2px solid rgba(255,255,255,0.3)' }}
+            className="text-white text-sm px-4 py-2 rounded-full border border-white border-opacity-30 hover:bg-white hover:bg-opacity-10 transition"
           >
             Đăng ký
-          </Button>
+          </a>
 
           {messagesCount > 0 && (
-            <Button
-              variant="outline-light"
-              size="sm"
+            <button
               onClick={onClearChat}
               disabled={isLoading}
-              className="d-flex align-items-center rounded-pill px-3 py-2 border-2"
-              style={{ border: '2px solid rgba(255,255,255,0.3)' }}
+              className={`flex items-center text-white text-sm px-4 py-2 rounded-full border border-white border-opacity-30 transition ${
+                isLoading
+                  ? "opacity-50 cursor-not-allowed"
+                  : "hover:bg-white hover:bg-opacity-10"
+              }`}
             >
-              <Trash2 size={16} className="me-2" />
+              <Trash2 size={16} className="mr-2" />
               Xoá Chat
-            </Button>
+            </button>
           )}
         </div>
-      </Container>
+      </div>
     </div>
   );
 }

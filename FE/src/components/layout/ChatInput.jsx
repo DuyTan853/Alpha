@@ -1,15 +1,13 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Form, Button, Spinner } from 'react-bootstrap';
-import { Send } from 'lucide-react';
+import React, { useState, useRef, useEffect } from "react";
+import { Send } from "lucide-react";
 
 function ChatInput({ onSendMessage, isLoading, messagesCount }) {
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
   const textareaRef = useRef(null);
 
-  // Auto resize textarea
   useEffect(() => {
     if (textareaRef.current) {
-      textareaRef.current.style.height = 'auto';
+      textareaRef.current.style.height = "auto";
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
     }
   }, [message]);
@@ -19,12 +17,12 @@ function ChatInput({ onSendMessage, isLoading, messagesCount }) {
     const trimmed = message.trim();
     if (trimmed && !isLoading) {
       onSendMessage(trimmed);
-      setMessage('');
+      setMessage("");
     }
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleSubmit(e);
     }
@@ -32,19 +30,14 @@ function ChatInput({ onSendMessage, isLoading, messagesCount }) {
 
   return (
     <div
-      className={`px-3 py-3 border-top bg-white shadow-sm ${messagesCount === 0 ? 'rounded shadow-lg' : ''}`}
-      style={{
-        position: 'sticky',
-        bottom: 0,
-        borderRadius:' 24px !important', // Bo tròn góc lớn
-        backdropFilter: messagesCount === 0 ? 'blur(10px)' : 'none',
-      }}
+      className={`px-4 py-3 bg-white shadow-sm border-t ${
+        messagesCount === 0 ? "rounded shadow-lg backdrop-blur-md" : ""
+      } sticky bottom-0`}
     >
-      <Form onSubmit={handleSubmit}>
-        <div className="position-relative">
+      <form onSubmit={handleSubmit}>
+        <div className="relative">
           {/* Textarea nhập tin nhắn */}
-          <Form.Control
-            as="textarea"
+          <textarea
             ref={textareaRef}
             rows={1}
             value={message}
@@ -52,44 +45,32 @@ function ChatInput({ onSendMessage, isLoading, messagesCount }) {
             onKeyDown={handleKeyDown}
             placeholder="Nhập tin nhắn...(Enter gửi / Shift+Enter xuống dòng)"
             disabled={isLoading}
-            className="border-0 shadow-none pe-5"
-            style={{
-              borderRadius: '24px', // Bo 4 góc lớn
-              resize: 'none',
-              padding: '12px 60px 12px 16px',
-              fontSize: '0.95rem',
-              minHeight: '44px',
-              maxHeight: '200px',
-              overflowY: 'auto',
-              background: '#f8f9fa',
-            }}
+            className="w-full pr-14 rounded-3xl resize-none text-sm min-h-[44px] max-h-[200px] overflow-y-auto bg-gray-100 border-0 focus:ring-0 focus:outline-none p-3"
           />
 
-          {/* Nút gửi (Send) */}
-          <Button
+          {/* Nút gửi */}
+          <button
             type="submit"
             aria-label="Gửi"
             disabled={isLoading || !message.trim()}
-            className="position-absolute end-0 top-50 translate-middle-y me-2 d-flex align-items-center justify-content-center"
-            style={{
-              width: '40px',
-              height: '40px',
-              borderRadius: '50%', // Nút bo tròn
-              background: isLoading || !message.trim()
-                ? 'linear-gradient(135deg, #adb5bd, #868e96)'
-                : 'linear-gradient(135deg, #007bff, #6f42c1)',
-              border: 'none',
-              color: '#fff',
-              transition: 'all 0.2s ease-in-out',
-            }}
+            className={`absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full transition-all duration-200
+              ${
+                isLoading || !message.trim()
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-gradient-to-br from-blue-600 to-purple-700 hover:opacity-90"
+              } text-white`}
           >
-            {isLoading ? <Spinner animation="border" size="sm" /> : <Send size={18} />}
-          </Button>
+            {isLoading ? (
+              <div className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full" />
+            ) : (
+              <Send size={18} />
+            )}
+          </button>
         </div>
-      </Form>
+      </form>
 
       <div className="text-center mt-2">
-        <small className="text-muted">
+        <small className="text-gray-500">
           Gnar AI có thể mắc lỗi. Hãy kiểm tra thông tin quan trọng.
         </small>
       </div>

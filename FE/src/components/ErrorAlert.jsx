@@ -1,18 +1,28 @@
-import React from 'react';
-import { Container, Alert } from 'react-bootstrap';
-// Improved ErrorAlert Component
+import React from "react";
+
 function ErrorAlert({ error, onDismiss }) {
   if (!error) return null;
 
   return (
-    <Container fluid className="px-4 pb-3">
-      <Alert variant="danger" dismissible onClose={onDismiss} className="mb-0 shadow-sm">
-        <Alert.Heading className="h6 mb-1">
-          <strong>Lỗi!</strong>
-        </Alert.Heading>
-        {error}
-      </Alert>
-    </Container>
+    <div className="w-full px-4 pb-3">
+      <div className="relative bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded shadow-sm mb-0">
+        {/* Nút đóng */}
+        <button
+          onClick={onDismiss}
+          className="absolute top-1 right-2 text-red-700 hover:text-red-900"
+          aria-label="Close"
+        >
+          ×
+        </button>
+
+        {/* Tiêu đề */}
+        <div className="font-semibold mb-1">Lỗi!</div>
+
+        {/* Nội dung lỗi */}
+        <div className="text-sm">{error}</div>
+      </div>
+    </div>
   );
 }
+
 export default ErrorAlert;

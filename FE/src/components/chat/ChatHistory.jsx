@@ -1,6 +1,11 @@
-import React from 'react';
-import { Form, Button, ListGroup, Badge, Dropdown } from 'react-bootstrap';
-import { MessageCircle, Trash2, Edit3, Calendar, MoreVertical } from 'lucide-react';
+import {
+  MessageCircle,
+  Trash2,
+  Edit3,
+  Calendar,
+  MoreVertical,
+} from "lucide-react";
+import { useState } from "react";
 
 function ChatHistory({
   chatHistory,
@@ -17,126 +22,152 @@ function ChatHistory({
   setChatToDelete,
   setShowDeleteModal,
 }) {
-  const filteredChats = chatHistory.filter(chat =>
+  const filteredChats = chatHistory.filter((chat) =>
     chat.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const formatDate = (dateString) =>
-    new Date(dateString).toLocaleDateString('vi-VN');
-
+    new Date(dateString).toLocaleDateString("vi-VN");
+  ///
+  const [hidden, setHidden] = useState(false);
+  const toggleSidebar = () => setHidden((prev) => !prev);
   return (
-    <div
-      style={{
-        borderRight: '1px solid #ddd',
-        background: '#f8f9fa',
-        display: 'flex',
-        flexDirection: 'column',
-        height: '100vh', // full chiều cao
-      }}
-    >
-      {/* Header: ô tìm kiếm và nút mới */}
-      <div className="p-3 border-bottom" style={{ backgroundColor: '#dee2e6' }}>
-        <div className="d-flex justify-content-between align-items-center mb-2">
-          <h6 className="mb-0">📚 Lịch sử chat</h6>
-          <Button size="sm" onClick={handleNewChat}>
-            <MessageCircle size={16} className="me-1" /> Mới
-          </Button>
+    <div className="block relative">
+      <div
+        className={`${
+          hidden ? "w-0" : "w-[300px]"
+        } flex flex-col h-screen border-r bg-gray-100 transition-all duration-300 ease-in-out overflow-hidden`}
+      >
+        {/* Header */}
+        <div className="p-3 border-b bg-gray-300">
+          <div className="flex justify-between items-center mb-2">
+            <h6 className="m-0 font-semibold">📚 Lịch sử chat</h6>
+            <button
+              onClick={handleNewChat}
+              className="flex items-center px-2 py-1 text-sm text-white bg-blue-600 rounded hover:bg-blue-700"
+            >
+              <MessageCircle size={16} className="mr-1" /> Mới
+            </button>
+            <button onClick={toggleSidebar} className="flex items-center">
+              <img className="w-5 h-5" src="/public/dashed.png" alt="..." />
+            </button>
+          </div>
+          <input
+            type="text"
+            placeholder="Tìm kiếm..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full p-2 text-sm border rounded"
+          />
         </div>
-        <Form.Control
-          type="text"
-          placeholder="Tìm kiếm..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-      </div>
 
-      {/* Danh sách chat */}
-      <div style={{ flex: 1, overflowY: 'auto' }}>
-        <ListGroup variant="flush">
+        {/* Chat list */}
+        <div className="flex-1 overflow-y-auto">
           {filteredChats.map((chat) => (
-            <ListGroup.Item
+            <div
               key={chat.id}
               onClick={() => handleSelectChat(chat)}
-              className={`border-0 ${currentChatId === chat.id ? 'bg-primary bg-opacity-10' : ''
-                }`}
-              style={{ cursor: 'pointer' }}
+              className={`px-4 py-3 border-b cursor-pointer ${
+                currentChatId === chat.id ? "bg-blue-100" : "hover:bg-gray-200"
+              }`}
             >
-              <div className="d-flex justify-content-between align-items-start">
-                <div className="flex-grow-1 me-2">
+              <div className="flex justify-between items-start">
+                <div className="flex-grow mr-2">
                   {editingChatId === chat.id ? (
-                    <div className="d-flex gap-2">
-                      <Form.Control
-                        size="sm"
+                    <div className="flex gap-2">
+                      <input
+                        type="text"
                         value={editTitle}
                         onChange={(e) => setEditTitle(e.target.value)}
                         onKeyDown={(e) => {
-                          if (e.key === 'Enter') saveEditTitle();
-                          if (e.key === 'Escape') {
-                            setEditTitle('');
+                          if (e.key === "Enter") saveEditTitle();
+                          if (e.key === "Escape") {
+                            setEditTitle("");
                             editingChatId(null);
                           }
                         }}
                         autoFocus
+                        className="w-full px-2 py-1 text-sm border rounded"
                       />
-                      <Button variant="success" size="sm" onClick={saveEditTitle}>
+                      <button
+                        onClick={saveEditTitle}
+                        className="px-2 py-1 text-xs text-white bg-green-600 rounded hover:bg-green-700"
+                      >
                         Lưu
-                      </Button>
+                      </button>
                     </div>
                   ) : (
-                    <h6 className="mb-1 text-truncate">{chat.title}</h6>
+                    <h6 className="mb-1 text-sm font-medium truncate">
+                      {chat.title}
+                    </h6>
                   )}
-                  <div className="d-flex text-muted small align-items-center gap-2">
+                  <div className="flex items-center text-xs text-gray-500 gap-2">
                     <Calendar size={12} />
                     <span>{formatDate(chat.updatedAt)}</span>
-                    <Badge bg="secondary" className="ms-auto">
+                    <span className="ml-auto inline-block px-2 py-0.5 text-xs bg-gray-500 text-white rounded">
                       {chat.messageCount}
-                    </Badge>
+                    </span>
                   </div>
                 </div>
-                <Dropdown align="end">
-                  <Dropdown.Toggle variant="link" size="sm" className="p-1">
-                    <MoreVertical size={14} />
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu>
-                    <Dropdown.Item onClick={() => handleEditTitle(chat.id)}>
-                      <Edit3 size={14} className="me-2" /> Đổi tên
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      className="text-danger"
+
+                {/* Dropdown menu */}
+                <div className="relative group">
+                  <button className="p-1">
+                    <MoreVertical size={16} />
+                  </button>
+                  <div className="absolute right-0 z-10 hidden group-hover:block bg-white border shadow rounded w-32">
+                    <button
+                      onClick={() => handleEditTitle(chat.id)}
+                      className="w-full flex items-center px-3 py-2 text-sm hover:bg-gray-100"
+                    >
+                      <Edit3 size={14} className="mr-2" /> Đổi tên
+                    </button>
+                    <button
                       onClick={() => {
                         setChatToDelete(chat.id);
                         setShowDeleteModal(true);
                       }}
+                      className="w-full flex items-center px-3 py-2 text-sm text-red-600 hover:bg-red-100"
                     >
-                      <Trash2 size={14} className="me-2" /> Xoá
-                    </Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
+                      <Trash2 size={14} className="mr-2" /> Xoá
+                    </button>
+                  </div>
+                </div>
               </div>
-            </ListGroup.Item>
+            </div>
           ))}
-        </ListGroup>
 
-        {chatHistory.length === 0 && (
-          <div className="text-center text-muted p-3">Chưa có lịch sử chat nào</div>
-        )}
+          {chatHistory.length === 0 && (
+            <div className="text-center text-gray-500 p-3">
+              Chưa có lịch sử chat nào
+            </div>
+          )}
+        </div>
+
+        {/* Footer */}
+        <footer className="text-center text-gray-600 text-xs p-3 bg-gray-300">
+          <p className="mb-0">
+            Powered by
+            <a
+              href="https://ollama.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline hover:text-blue-600"
+            >
+              Ollama
+            </a>
+          </p>
+          <p className="mb-0">© {new Date().getFullYear()} Alpha AI ChatBot</p>
+        </footer>
       </div>
-
-      {/* Footer */}
-      <footer
-        className="text-center text-muted small p-3"
-        style={{ backgroundColor: '#dee2e6' }}
-      >
-        <p className="mb-0">
-          Powered by{' '}
-          <a href="https://ollama.com" target="_blank" rel="noopener noreferrer">
-            Ollama
-          </a>
-        </p>
-        <p className="mb-0">© {new Date().getFullYear()} Gnar AI ChatBot</p>
-      </footer>
+      {hidden == true && (
+        <div className="absolute top-0.5 left-0 flex w-6 h-18 z-50 bg-zinc-700/60 rounded-r-lg">
+          <button onClick={toggleSidebar} className="flex items-center">
+            <img className="w-10 h-10" src="/public/arrow.png" alt="..." />
+          </button>
+        </div>
+      )}
     </div>
-
   );
 }
 

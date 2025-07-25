@@ -10,7 +10,7 @@ function LoadingMessage() {
             alt="Gnar"
             className="w-6 h-6 rounded-full mr-2"
           />
-          Gnar AI
+          Alpha AI
         </div>
 
         <div className="flex items-center gap-2 text-sm text-gray-400">

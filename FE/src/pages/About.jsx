@@ -67,10 +67,10 @@ function About() {
       {/* Giới thiệu */}
       <div className="text-center max-w-2xl mx-auto mb-12">
         <h2 className="text-2xl font-bold mb-2">
-          🤖 Giới thiệu về Gnar AI ChatBot
+          🤖 Giới thiệu về Alpha AI ChatBot
         </h2>
         <p className="text-gray-600">
-          Gnar AI là trợ lý ảo thông minh được xây dựng dựa trên công nghệ AI
+          Alpha AI là trợ lý ảo thông minh được xây dựng dựa trên công nghệ AI
           tiên tiến, giúp bạn trò chuyện, học tập, lập trình và sáng tạo hiệu
           quả hơn.
         </p>
@@ -81,14 +81,14 @@ function About() {
         <div className="bg-white p-6 rounded-lg shadow-sm h-full">
           <h3 className="font-semibold mb-2">⚡ Tương tác mượt mà</h3>
           <p className="text-gray-600 text-sm">
-            Gnar AI mang đến trải nghiệm hội thoại tự nhiên, trả lời nhanh chóng
-            và chính xác các câu hỏi của bạn.
+            Alpha AI mang đến trải nghiệm hội thoại tự nhiên, trả lời nhanh
+            chóng và chính xác các câu hỏi của bạn.
           </p>
         </div>
         <div className="bg-white p-6 rounded-lg shadow-sm h-full">
           <h3 className="font-semibold mb-2">💡 Hỗ trợ học tập & lập trình</h3>
           <p className="text-gray-600 text-sm">
-            Gnar AI có thể giúp bạn giải bài tập, viết code, tìm lỗi, tóm tắt
+            Alpha AI có thể giúp bạn giải bài tập, viết code, tìm lỗi, tóm tắt
             nội dung và nhiều hơn thế nữa.
           </p>
         </div>
@@ -105,12 +105,12 @@ function About() {
       <div className="mt-16 text-center">
         <h5 className="text-lg font-bold mb-2">🚀 Công nghệ nền tảng</h5>
         <p className="text-sm">
-          Gnar AI sử dụng <strong>FastAPI</strong> cho backend,{" "}
+          Alpha AI sử dụng <strong>FastAPI</strong> cho backend,{" "}
           <strong>React</strong> cho frontend và{" "}
           <strong>Ollama + Phi-3:mini</strong> làm mô hình AI xử lý ngôn ngữ.
         </p>
         <p className="text-xs text-gray-500 mt-2">
-          © {new Date().getFullYear()} Gnar AI ChatBot - Phiên bản thử nghiệm
+          © {new Date().getFullYear()} Alpha AI ChatBot - Phiên bản thử nghiệm
           dành cho mục đích học tập và nghiên cứu.
         </p>
       </div>

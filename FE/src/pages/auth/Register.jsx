@@ -50,7 +50,7 @@ export default function Register() {
           Tạo tài khoản
         </h3>
         <p className="text-sm text-gray-500 text-center mb-6">
-          Đăng ký để bắt đầu sử dụng Gnar AI
+          Đăng ký để bắt đầu sử dụng Alpha AI
         </p>
 
         {/* Form đăng ký */}

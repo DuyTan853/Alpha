@@ -71,7 +71,7 @@ function ChatInput({ onSendMessage, isLoading, messagesCount }) {
 
       <div className="text-center mt-2">
         <small className="text-gray-500">
-          Gnar AI có thể mắc lỗi. Hãy kiểm tra thông tin quan trọng.
+          Alpha AI có thể mắc lỗi. Hãy kiểm tra thông tin quan trọng.
         </small>
       </div>
     </div>

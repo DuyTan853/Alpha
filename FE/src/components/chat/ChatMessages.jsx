@@ -31,7 +31,7 @@ function ChatMessages({ messages, onQuickMessage }) {
         </div>
       </div>
       <h2 className="text-2xl font-bold text-gray-800 mb-3">
-        Chào mừng đến với Gnar AI!
+        Chào mừng đến với Alpha AI!
       </h2>
       <p className="text-gray-500 mb-6 px-4">
         Tôi là trợ lý AI thông minh, sẵn sàng giúp bạn giải đáp mọi thắc mắc.

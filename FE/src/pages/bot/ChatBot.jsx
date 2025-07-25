@@ -176,23 +176,21 @@ export default function ChatBot() {
   return (
     <div className="flex flex-col md:flex-row h-screen w-screen overflow-hidden">
       {/* Sidebar */}
-      <aside className="hidden md:block w-[300px] border-r border-gray-200 bg-gray-50">
-        <ChatHistory
-          chatHistory={chatHistory}
-          currentChatId={currentChatId}
-          searchTerm={searchTerm}
-          setSearchTerm={setSearchTerm}
-          handleNewChat={handleNewChat}
-          handleSelectChat={handleSelectChat}
-          editingChatId={editingChatId}
-          editTitle={editTitle}
-          setEditTitle={setEditTitle}
-          handleEditTitle={handleEditTitle}
-          saveEditTitle={saveEditTitle}
-          setChatToDelete={setChatToDelete}
-          setShowDeleteModal={setShowDeleteModal}
-        />
-      </aside>
+      <ChatHistory
+        chatHistory={chatHistory}
+        currentChatId={currentChatId}
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+        handleNewChat={handleNewChat}
+        handleSelectChat={handleSelectChat}
+        editingChatId={editingChatId}
+        editTitle={editTitle}
+        setEditTitle={setEditTitle}
+        handleEditTitle={handleEditTitle}
+        saveEditTitle={saveEditTitle}
+        setChatToDelete={setChatToDelete}
+        setShowDeleteModal={setShowDeleteModal}
+      />
 
       {/* Chat Area */}
       <main className="flex flex-col flex-1 h-full relative">

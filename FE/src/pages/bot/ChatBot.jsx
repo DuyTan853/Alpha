@@ -195,7 +195,7 @@ export default function ChatBot() {
       {/* Chat Area */}
       <main className="flex flex-col flex-1 h-full relative">
         {/* Mobile top bar */}
-        <div className="md:hidden border-b p-3 bg-white flex justify-between items-center">
+        <div className="md:hidden  p-3 bg-white flex justify-between items-center">
           <button
             className="text-sm font-medium text-blue-600"
             onClick={() => setShowSidebar(true)}
@@ -230,7 +230,7 @@ export default function ChatBot() {
           </div>
         </div>
 
-        <div className="sticky top-0 z-10 bg-white border-b">
+        <div className="sticky top-0 z-10 bg-white ">
           <ChatHeader
             messagesCount={messages.length}
             onClearChat={() => setMessages([])}
@@ -255,7 +255,7 @@ export default function ChatBot() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="sticky bottom-0 z-10 bg-white border-t px-4 py-3"
+          className="sticky bottom-0 z-10 bg-white px-4 py-3"
         >
           <div className="max-w-4xl mx-auto">
             <ChatInput

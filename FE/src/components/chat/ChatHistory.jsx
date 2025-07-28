@@ -28,20 +28,22 @@ function ChatHistory({
 
   const formatDate = (dateString) =>
     new Date(dateString).toLocaleDateString("vi-VN");
-  ///
+
+  /// duytan
   const [hidden, setHidden] = useState(false);
   const toggleSidebar = () => setHidden((prev) => !prev);
+
   return (
     <div className="block relative">
       <div
         className={`${
-          hidden ? "w-0" : "w-[300px]"
-        } flex flex-col h-screen border-r bg-gray-100 transition-all duration-300 ease-in-out overflow-hidden`}
+          hidden ? "w-[90px]" : "w-[300px]"
+        } flex flex-col h-screen  bg-neutral-600 transition-all duration-300 ease-in-out overflow-hidden`}
       >
         {/* Header */}
-        <div className="p-3 border-b bg-gray-300">
+        <div className="p-3   bg-neutral-600 ">
           <div className="flex justify-between items-center mb-2">
-            <h6 className="m-0 font-semibold">📚 Lịch sử chat</h6>
+            <h6 className="m-0 font-semibold">Chats</h6>
             <button
               onClick={handleNewChat}
               className="flex items-center px-2 py-1 text-sm text-white bg-blue-600 rounded hover:bg-blue-700"
@@ -49,7 +51,7 @@ function ChatHistory({
               <MessageCircle size={16} className="mr-1" /> Mới
             </button>
             <button onClick={toggleSidebar} className="flex items-center">
-              <img className="w-5 h-5" src="/public/dashed.png" alt="..." />
+              <img className="w-5 h-5" src="/public/menu-bar.png" alt="..." />
             </button>
           </div>
           <input
@@ -138,25 +140,14 @@ function ChatHistory({
           ))}
 
           {chatHistory.length === 0 && (
-            <div className="text-center text-gray-500 p-3">
+            <div className="text-center text-gray-100 p-3">
               Chưa có lịch sử chat nào
             </div>
           )}
         </div>
 
         {/* Footer */}
-        <footer className="text-center text-gray-600 text-xs p-3 bg-gray-300">
-          <p className="mb-0">
-            Powered by
-            <a
-              href="https://ollama.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline hover:text-blue-600"
-            >
-              Ollama
-            </a>
-          </p>
+        <footer className="text-center text-white text-xs p-3  bg-neutral-600">
           <p className="mb-0">© {new Date().getFullYear()} Alpha AI ChatBot</p>
         </footer>
       </div>

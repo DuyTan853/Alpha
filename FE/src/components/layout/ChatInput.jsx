@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Send } from "lucide-react";
+import { Send, Mic, MicOff } from "lucide-react";
 
 function ChatInput({ onSendMessage, isLoading, messagesCount }) {
   const [message, setMessage] = useState("");
+  const [isRecording, setIsRecording] = useState(false);
   const textareaRef = useRef(null);
 
   useEffect(() => {
@@ -28,6 +29,31 @@ function ChatInput({ onSendMessage, isLoading, messagesCount }) {
     }
   };
 
+  const handleVoiceRecord = async () => {
+    if (isRecording) return;
+
+    try {
+      setIsRecording(true);
+      const res = await fetch("http://localhost:8000/voice/record", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ duration: 5, language: "vi-VN" }),
+      });
+      const data = await res.json();
+
+      if (data.success && data.text) {
+        onSendMessage(data.text); // Gửi như tin nhắn thường
+      } else {
+        alert("Không nhận diện được giọng nói.");
+      }
+    } catch (err) {
+      console.error("Lỗi ghi âm:", err);
+      alert("Lỗi khi ghi âm hoặc kết nối server.");
+    } finally {
+      setIsRecording(false);
+    }
+  };
+
   return (
     <div
       className={`px-4 py-3 bg-white shadow-sm border-t ${
@@ -35,7 +61,22 @@ function ChatInput({ onSendMessage, isLoading, messagesCount }) {
       } sticky bottom-0`}
     >
       <form onSubmit={handleSubmit}>
-        <div className="relative">
+        <div className="relative flex items-end gap-2">
+          {/* Nút ghi âm */}
+          <button
+            type="button"
+            onClick={handleVoiceRecord}
+            disabled={isLoading || isRecording}
+            title="Ghi âm giọng nói"
+            className={`w-10 h-10 flex items-center justify-center rounded-full border transition-all ${
+              isRecording
+                ? "bg-red-500 text-white animate-pulse"
+                : "bg-white text-gray-600 hover:bg-gray-200"
+            }`}
+          >
+            {isRecording ? <MicOff size={18} /> : <Mic size={18} />}
+          </button>
+
           {/* Textarea nhập tin nhắn */}
           <textarea
             ref={textareaRef}

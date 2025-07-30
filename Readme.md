@@ -7,14 +7,13 @@
 
 - Run Back-end
   Step 1: enter BE : -> cd BE
-  Step 2: run venv :
+  Step 2: create venv
+  -> If venv file exists then delete it : rm -rf venv
+  -> create venv : python3 -m venv venv
+  -> run venv :
   if linux : source venv/bin/activate
   if window CMD : venv\Scripts\activate.bat
   if window PowerShell : venv\Scripts\Activate.ps1
-  Step 3: create venv
-  -> If venv file exists then delete it : rm -rf venv
-  -> create venv : python3 -m venv venv
-  -> run venv as Step 2
   -> install package from requirement : python3 -m pip install -r requirements.txt
   -> install python multipart : pip install python-multipart
   -> run uvicorn : uvicorn main:app --host 127.0.0.1 --port 8000 --workers 1

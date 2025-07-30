@@ -78,7 +78,7 @@ function ChatMessages({ messages, onQuickMessage }) {
                 }`}
               >
                 {isUser ? (
-                  <div className="bg-gradient-to-br from-blue-500 to-blue-800 w-full h-full flex items-center justify-center rounded-full shadow">
+                  <div className="bg-gradient-to-br bg-neutral-600 w-full h-full flex items-center justify-center rounded-full shadow">
                     <User size={20} color="white" />
                   </div>
                 ) : (
@@ -96,7 +96,7 @@ function ChatMessages({ messages, onQuickMessage }) {
               <div
                 className={`px-4 py-2 rounded-2xl shadow-sm text-sm whitespace-pre-wrap break-words ${
                   isUser
-                    ? "bg-blue-600 text-white rounded-br-sm"
+                    ? "bg-neutral-600 text-gray-100  rounded-br-sm"
                     : "bg-gray-100 text-gray-800 rounded-bl-sm border"
                 }`}
               >

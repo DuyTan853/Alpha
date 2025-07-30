@@ -1,7 +1,6 @@
 import { Bot, Trash2, Sparkles } from "lucide-react";
 
 function ChatHeader({ messagesCount, onClearChat, isLoading }) {
-  
   return (
     <div className=" text-white bg-neutral-700">
       <div className="flex ml-4 justify-end items-center gap-3 px-6 py-4">
@@ -23,7 +22,7 @@ function ChatHeader({ messagesCount, onClearChat, isLoading }) {
 
           <a
             href="/register"
-            className="text-white text-sm px-4 py-2 rounded-fullborder-opacity-30 hover:bg-neutral-500 hover:bg-opacity-10 transition"
+            className="text-white text-sm px-4 py-2 rounded-full hover:bg-neutral-500 hover:bg-opacity-10 transition"
           >
             Đăng ký
           </a>

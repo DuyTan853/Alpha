@@ -10,7 +10,7 @@ function About() {
       {/* Header */}
       <div className="flex justify-between items-center mb-8 flex-wrap">
         <button
-          className="flex items-center gap-2 px-3 py-1 rounded-full border border-gray-300 hover:bg-gray-100 transition"
+          className="flex items-center gap-2 text-white text-sm px-4 py-2 rounded-full hover:bg-neutral-500 hover:bg-opacity-10 transition"
           onClick={() => navigate("/")}
         >
           <ArrowLeft size={16} />
@@ -66,10 +66,10 @@ function About() {
 
       {/* Giới thiệu */}
       <div className="text-center max-w-2xl mx-auto mb-12">
-        <h2 className="text-2xl font-bold mb-2">
+        <h2 className="text-2xl text-slate-200 font-bold mb-2">
           🤖 Giới thiệu về Alpha AI ChatBot
         </h2>
-        <p className="text-gray-600">
+        <p className="text-slate-300">
           Alpha AI là trợ lý ảo thông minh được xây dựng dựa trên công nghệ AI
           tiên tiến, giúp bạn trò chuyện, học tập, lập trình và sáng tạo hiệu
           quả hơn.
@@ -103,13 +103,15 @@ function About() {
 
       {/* Công nghệ nền tảng */}
       <div className="mt-16 text-center">
-        <h5 className="text-lg font-bold mb-2">🚀 Công nghệ nền tảng</h5>
-        <p className="text-sm">
+        <h5 className="text-lg text-slate-300 font-bold mb-2">
+          🚀 Công nghệ nền tảng
+        </h5>
+        <p className=" text-slate-300 text-sm">
           Alpha AI sử dụng <strong>FastAPI</strong> cho backend,{" "}
           <strong>React</strong> cho frontend và{" "}
           <strong>Ollama + Phi-3:mini</strong> làm mô hình AI xử lý ngôn ngữ.
         </p>
-        <p className="text-xs text-gray-500 mt-2">
+        <p className="text-xs text-slate-300 mt-2">
           © {new Date().getFullYear()} Alpha AI ChatBot - Phiên bản thử nghiệm
           dành cho mục đích học tập và nghiên cứu.
         </p>

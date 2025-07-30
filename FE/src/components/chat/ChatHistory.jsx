@@ -29,38 +29,68 @@ function ChatHistory({
   const formatDate = (dateString) =>
     new Date(dateString).toLocaleDateString("vi-VN");
 
-  /// duytan
+  // toggle side bar
   const [hidden, setHidden] = useState(false);
   const toggleSidebar = () => setHidden((prev) => !prev);
+
+  // toggle search
+  const [hiddenSearch, showSearch] = useState(false);
+  const toggleSearch = () => showSearch((prev) => !prev);
 
   return (
     <div className="block relative">
       <div
         className={`${
-          hidden ? "w-[90px]" : "w-[300px]"
-        } flex flex-col h-screen  bg-neutral-600 transition-all duration-300 ease-in-out overflow-hidden`}
+          hidden ? "w-0" : "w-[300px]"
+        } flex flex-col h-screen  bg-neutral-800  transition-all duration-300 ease-in-out overflow-hidden`}
       >
         {/* Header */}
-        <div className="p-3   bg-neutral-600 ">
+        <div className="p-3 bg-neutral-800">
+          {/* Hàng đầu: Chats và nút menu */}
           <div className="flex justify-between items-center mb-2">
-            <h6 className="m-0 font-semibold">Chats</h6>
+            <h6 className="m-0 font-semibold text-2xl text-gray-100">
+              Chats history
+            </h6>
             <button
-              onClick={handleNewChat}
-              className="flex items-center px-2 py-1 text-sm text-white bg-blue-600 rounded hover:bg-blue-700"
+              onClick={toggleSidebar}
+              className="flex items-center hover:bg-neutral-500 transition-all duration-200 rounded-sm"
             >
-              <MessageCircle size={16} className="mr-1" /> Mới
-            </button>
-            <button onClick={toggleSidebar} className="flex items-center">
-              <img className="w-5 h-5" src="/public/menu-bar.png" alt="..." />
+              <img className="w-8 h-8" src="/public/menu-bar.png" alt="..." />
             </button>
           </div>
-          <input
-            type="text"
-            placeholder="Tìm kiếm..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full p-2 text-sm border rounded"
-          />
+          {/* Nút "Mới" */}
+          <button
+            onClick={handleNewChat}
+            className="w-full flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-100 bg-neutral-800 rounded hover:bg-neutral-500 transition-all duration-200"
+          >
+            <img
+              src="/public/new-tab.png"
+              alt="new-chat"
+              className="w-5 h-5 object-contain filter invert brightness-200"
+            />
+            <span className="leading-none">New chat</span>
+          </button>
+          {/* Ô tìm kiếm */}
+          <button
+            onClick={toggleSearch}
+            className="w-full flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-100 bg-neutral-800 rounded hover:bg-neutral-500 transition-all duration-200"
+          >
+            <img
+              src="/public/search.png"
+              alt="new-chat"
+              className="w-5 h-5 object-contain filter invert brightness-200"
+            />
+            <span className="leading-none">Tìm kiếm</span>
+          </button>
+          {hiddenSearch == true && (
+            <input
+              type="text"
+              placeholder="vui lòng nhập để tìm kiếm..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full p-2 text-neutral-50 border-gray-1 text-base rounded mb-2 outline-none focus:outline-none"
+            />
+          )}
         </div>
 
         {/* Chat list */}
@@ -70,11 +100,13 @@ function ChatHistory({
               key={chat.id}
               onClick={() => handleSelectChat(chat)}
               className={`px-4 py-3 border-b cursor-pointer ${
-                currentChatId === chat.id ? "bg-blue-100" : "hover:bg-gray-200"
+                currentChatId === chat.id
+                  ? "bg-neutral-500"
+                  : "hover:bg-neutral-400 transition-all duration-200"
               }`}
             >
               <div className="flex justify-between items-start">
-                <div className="flex-grow mr-2">
+                <div className="flex-grow mr-2 text-gray-200">
                   {editingChatId === chat.id ? (
                     <div className="flex gap-2">
                       <input
@@ -93,7 +125,7 @@ function ChatHistory({
                       />
                       <button
                         onClick={saveEditTitle}
-                        className="px-2 py-1 text-xs text-white bg-green-600 rounded hover:bg-green-700"
+                        className="px-2 py-1 text-xs text-gray-200 bg-green-600 rounded hover:bg-green-700"
                       >
                         Lưu
                       </button>
@@ -103,10 +135,10 @@ function ChatHistory({
                       {chat.title}
                     </h6>
                   )}
-                  <div className="flex items-center text-xs text-gray-500 gap-2">
+                  <div className="flex items-center text-xs text-gray-200 gap-2">
                     <Calendar size={12} />
                     <span>{formatDate(chat.updatedAt)}</span>
-                    <span className="ml-auto inline-block px-2 py-0.5 text-xs bg-gray-500 text-white rounded">
+                    <span className="ml-auto inline-block px-2 py-0.5 text-xs bg-gray-500 text-gray-100 rounded">
                       {chat.messageCount}
                     </span>
                   </div>
@@ -147,14 +179,17 @@ function ChatHistory({
         </div>
 
         {/* Footer */}
-        <footer className="text-center text-white text-xs p-3  bg-neutral-600">
+        <footer className="text-center text-gray-100 text-xs p-3  bg-neutral-800 ">
           <p className="mb-0">© {new Date().getFullYear()} Alpha AI ChatBot</p>
         </footer>
       </div>
       {hidden == true && (
-        <div className="absolute top-0.5 left-0 flex w-6 h-18 z-50 bg-zinc-700/60 rounded-r-lg">
-          <button onClick={toggleSidebar} className="flex items-center">
-            <img className="w-10 h-10" src="/public/arrow.png" alt="..." />
+        <div className="absolute top-4 left-0 flex w-10 h-10 z-50 bg-zinc-700/60 rounded-r-lg">
+          <button
+            onClick={toggleSidebar}
+            className=" hover:bg-neutral-500 transition-all duration-200 rounded-sm"
+          >
+            <img className="w-10 h-10" src="/public/menu-bar.png" alt="..." />
           </button>
         </div>
       )}

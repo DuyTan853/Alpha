@@ -238,7 +238,7 @@ export default function ChatBot() {
           />
         </div>
 
-        <div className="flex-1 overflow-y-auto px-4 py-2">
+        <div className="flex-1 overflow-y-auto px-4 py-2 bg-neutral-700">
           <div className="max-w-4xl mx-auto">
             <ChatMessages
               messages={messages}
@@ -255,7 +255,7 @@ export default function ChatBot() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="sticky bottom-0 z-10 bg-white px-4 py-3"
+          className="sticky bottom-0 z-10 bg-neutral-700 px-4 py-3"
         >
           <div className="max-w-4xl mx-auto">
             <ChatInput

@@ -16,7 +16,7 @@ export default function App() {
   ];
 
   return (
-    <section className="min-h-screen bg-gray-100 text-gray-900">
+    <section className="min-h-screen bg-neutral-700 text-gray-900">
       <Routes>
         {routes.map((route, index) => (
           <Route key={index} path={route.path} element={route.element} />

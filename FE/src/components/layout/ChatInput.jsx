@@ -56,27 +56,14 @@ function ChatInput({ onSendMessage, isLoading, messagesCount }) {
 
   return (
     <div
-      className={`px-4 py-3 bg-white shadow-sm border-t ${
-        messagesCount === 0 ? "rounded shadow-lg backdrop-blur-md" : ""
-      } sticky bottom-0`}
+      className={`px-4 py-3 bg-neutral-800 shadow-sm border rounded-2xl
+
+ ${
+   messagesCount === 0 ? "rounded shadow-lg backdrop-blur-md" : ""
+ } sticky bottom-0`}
     >
       <form onSubmit={handleSubmit}>
-        <div className="relative flex items-end gap-2">
-          {/* Nút ghi âm */}
-          <button
-            type="button"
-            onClick={handleVoiceRecord}
-            disabled={isLoading || isRecording}
-            title="Ghi âm giọng nói"
-            className={`w-10 h-10 flex items-center justify-center rounded-full border transition-all ${
-              isRecording
-                ? "bg-red-500 text-white animate-pulse"
-                : "bg-white text-gray-600 hover:bg-gray-200"
-            }`}
-          >
-            {isRecording ? <MicOff size={18} /> : <Mic size={18} />}
-          </button>
-
+        <div className="flex items-end gap-2">
           {/* Textarea nhập tin nhắn */}
           <textarea
             ref={textareaRef}
@@ -86,33 +73,54 @@ function ChatInput({ onSendMessage, isLoading, messagesCount }) {
             onKeyDown={handleKeyDown}
             placeholder="Nhập tin nhắn...(Enter gửi / Shift+Enter xuống dòng)"
             disabled={isLoading}
-            className="w-full pr-14 rounded-3xl resize-none text-sm min-h-[44px] max-h-[200px] overflow-y-auto bg-gray-100 border-0 focus:ring-0 focus:outline-none p-3"
+            className="w-full rounded-3xl resize-none text-lg min-h-[44px] max-h-[200px] text-gray-50 overflow-y-auto bg-neutral-800 border-0 focus:ring-0 focus:outline-none p-3"
           />
 
-          {/* Nút gửi */}
-          <button
-            type="submit"
-            aria-label="Gửi"
-            disabled={isLoading || !message.trim()}
-            className={`absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full transition-all duration-200
-              ${
-                isLoading || !message.trim()
-                  ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-gradient-to-br from-blue-600 to-purple-700 hover:opacity-90"
-              } text-white`}
-          >
-            {isLoading ? (
-              <div className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full" />
-            ) : (
-              <Send size={18} />
-            )}
-          </button>
+          {/* Nút chồng: Gửi và Ghi âm */}
+          <div className="relative w-10 h-10">
+            {/* Nút gửi */}
+            <button
+              type="submit"
+              aria-label="Gửi"
+              disabled={isLoading || !message.trim()}
+              className={`absolute inset-0 flex items-center justify-center rounded-full transition-all duration-200
+            ${
+              isLoading || !message.trim()
+                ? "hidden"
+                : "bg-gradient-to-br bg-neutral-300 text-gray-600 hover:opacity-90 border transition-all"
+            }`}
+            >
+              {isLoading ? (
+                <div className="animate-spin h-4 w-4 border-2 bg-neutral-300 border-t-transparent rounded-full" />
+              ) : (
+                <Send size={18} />
+              )}
+            </button>
+
+            {/* Nút ghi âm */}
+            <button
+              type="button"
+              onClick={handleVoiceRecord}
+              disabled={isLoading || isRecording || message.trim()}
+              title="Ghi âm giọng nói"
+              className={`absolute inset-0 flex items-center justify-center rounded-full border transition-all
+            ${
+              message.trim()
+                ? "hidden"
+                : isRecording
+                ? "bg-red-500 text-white animate-pulse"
+                : "bg-neutral-300 text-gray-600 hover:bg-gray-200"
+            }`}
+            >
+              {isRecording ? <MicOff size={18} /> : <Mic size={18} />}
+            </button>
+          </div>
         </div>
       </form>
 
       <div className="text-center mt-2">
         <small className="text-gray-500">
-          Alpha AI có thể mắc lỗi. Hãy kiểm tra thông tin quan trọng.
+          Team Alpha thực hiện và phát triển
         </small>
       </div>
     </div>

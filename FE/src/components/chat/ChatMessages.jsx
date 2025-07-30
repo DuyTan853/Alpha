@@ -4,7 +4,7 @@ import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
 import ReactMarkdown from "react-markdown";
 import "highlight.js/styles/github.css";
-import gnarAvarta from "../../assets/images/gnarAvarta.png";
+import AI from "../../assets/images/AI.png";
 
 function ChatMessages({ messages, onQuickMessage }) {
   const quickItems = [
@@ -22,25 +22,25 @@ function ChatMessages({ messages, onQuickMessage }) {
       className="text-center py-10"
     >
       <div className="mb-6">
-        <div className="inline-flex items-center justify-center rounded-full shadow bg-gradient-to-br from-indigo-500 to-purple-600 w-16 h-16 p-1">
+        <div className="inline-flex items-center justify-center rounded-full shadow bg-gradient-to-br w-16 h-16 p-1">
           <img
-            src={gnarAvarta}
-            alt="Gnar Avatar"
+            src={AI}
+            alt="AI logo"
             className="rounded-full w-full h-full object-cover transition-transform"
           />
         </div>
       </div>
-      <h2 className="text-2xl font-bold text-gray-800 mb-3">
+      <h2 className="text-2xl font-bold text-slate-200 mb-3">
         Chào mừng đến với Alpha AI!
       </h2>
-      <p className="text-gray-500 mb-6 px-4">
+      <p className="text-slate-300 mb-6 px-4">
         Tôi là trợ lý AI thông minh, sẵn sàng giúp bạn giải đáp mọi thắc mắc.
       </p>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 justify-center">
         {quickItems.map((item, i) => (
           <div
             key={i}
-            className="bg-white/80 backdrop-blur p-4 text-center rounded shadow hover:shadow-md transition cursor-pointer"
+            className="bg-gray-300 backdrop-blur p-4 text-center rounded shadow hover:shadow-md transition cursor-pointer"
             onClick={() => onQuickMessage?.(item.text)}
           >
             <div className="text-2xl mb-2">{item.icon}</div>
@@ -82,10 +82,10 @@ function ChatMessages({ messages, onQuickMessage }) {
                     <User size={20} color="white" />
                   </div>
                 ) : (
-                  <div className="bg-gradient-to-br from-indigo-500 to-purple-600 w-full h-full flex items-center justify-center rounded-full shadow">
+                  <div className="w-9 h-9 bg-gradient-to-br flex items-center justify-center rounded-full shadow">
                     <img
-                      src={gnarAvarta}
-                      alt="Gnar"
+                      src={AI}
+                      alt="AI"
                       className="w-9 h-9 rounded-full object-cover"
                     />
                   </div>
@@ -109,7 +109,7 @@ function ChatMessages({ messages, onQuickMessage }) {
                   remarkPlugins={[remarkGfm]}
                   rehypePlugins={[rehypeHighlight]}
                   components={{
-                    pre: ({ node, ...props }) => (
+                    pre: ({ ...props }) => (
                       <pre
                         className="bg-gray-100 text-black text-sm rounded p-2 overflow-x-auto mt-2 mb-2"
                         {...props}
